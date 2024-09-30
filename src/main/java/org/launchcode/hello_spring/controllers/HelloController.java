@@ -33,6 +33,38 @@ public class HelloController {
         return "Hello, " + name + "!";
     }
 
+    @RequestMapping(value="hello", method = RequestMethod.POST)
+    @ResponseBody
+    public String helloPost(@RequestParam String name, @RequestParam String language) {
+        if (name == null) {
+            name = "World";
+        }
+
+        return createMessage(name, language);
+    }
+
+    public static String createMessage(String name, String language) {
+        String greeting = "";
+
+        if (language.equals("English")) {
+            greeting = "Hello";
+        }
+        else if (language.equals("French")) {
+            greeting = "Bonjour";
+        }
+        else if (language.equals("Spanish")) {
+            greeting = "Hola";
+        }
+        else if (language.equals("Chinese")) {
+            greeting = "Ni Hao";
+        }
+        else if (language.equals("German")) {
+            greeting = "Guten Tag";
+        }
+
+        return greeting + " " + name;
+    }
+
     //handles requests for http://localhost:8080/hello/form
     @GetMapping("form")
     public String helloForm() {
@@ -40,6 +72,13 @@ public class HelloController {
                 "<body>" +
                 "<form action = '/hello' method = 'post'>" + // submit a request to /hello
                 "<input type = 'text' name = 'name' >" +
+                "<select name= 'language'>" +
+                    "<option value='English'>English</option>" +
+                    "<option value='French'>French</option>" +
+                    "<option value='Spanish'>Spanish</option>" +
+                    "<option value='Chinese'>Chinese</option>" +
+                    "<option value='German'>German</option>" +
+                "</select>" +
                 "<input type = 'submit' value = 'Greet Me!' >" +
                 "</form>" +
                 "</body>" +
