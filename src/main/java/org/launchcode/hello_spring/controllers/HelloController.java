@@ -13,4 +13,11 @@ public class HelloController {
     public String hello(){
         return "Hello, Spring!";
     }
+
+    // Handles request at path/goodbye
+    @GetMapping("goodbye")
+    @ResponseBody
+    public String goodbye(){
+        return "Goodbye, Spring!";
+    }
 }
